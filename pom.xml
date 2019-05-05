@@ -18,28 +18,40 @@
 		<java.version>1.8</java.version>
 	</properties>
 
+
+<!-- DEPENDENCIAS -->
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+		
+		<!-- Spring Boot - WEB -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		
+		<!-- Spring Boot - JPA -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+		<!-- Spring Boot - H2 -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<!-- Spring Boot - Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 	</dependencies>
 
+
+	<!-- BUILD AND PLUGINS -->
 	<build>
 		<plugins>
 			<plugin>
@@ -49,6 +61,8 @@
 		</plugins>
 	</build>
 
+
+	<!-- REPOSITÓRIOS -->
 	<repositories>
 		<repository>
 			<id>spring-snapshots</id>
@@ -64,6 +78,9 @@
 			<url>https://repo.spring.io/milestone</url>
 		</repository>
 	</repositories>
+	
+	
+	<!-- PLUGINS REPOSITÓRIOS -->	
 	<pluginRepositories>
 		<pluginRepository>
 			<id>spring-snapshots</id>
