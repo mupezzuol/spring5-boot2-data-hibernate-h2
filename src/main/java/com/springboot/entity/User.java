@@ -1,12 +1,10 @@
 package com.springboot.entity;
 
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class User {
@@ -15,25 +13,57 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nome;
-	private int idade;
 	private String email;
 	
-	@ManyToMany
-	private Set<Role> roles;
+	//MUITOS User -> UM Role
+	@ManyToOne
+	private Role role;
 	
 	
-	//Constructor's customizados
-	public User(String nome, String email, int idade) {
+	//Constructor's
+	public User() {
+		super();
+	}
+	
+	public User(String nome, String email) {
 		super();
 		this.nome = nome;
 		this.email = email;
-		this.idade = idade;
 	}
 	
 	
-	
-	
-	
+	//Getter's and Setter's
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 	
 }
