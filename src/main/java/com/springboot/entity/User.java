@@ -16,6 +16,7 @@ public class User {
 	private String email;
 	
 	//MUITOS User -> UM Role
+	//Eu posso ter vários usuários com o mesmo perfil
 	@ManyToOne
 	private Role role;
 	
@@ -25,10 +26,11 @@ public class User {
 		super();
 	}
 	
-	public User(String nome, String email) {
+	public User(String nome, String email, Role role) {
 		super();
 		this.nome = nome;
 		this.email = email;
+		this.role = role;
 	}
 	
 	

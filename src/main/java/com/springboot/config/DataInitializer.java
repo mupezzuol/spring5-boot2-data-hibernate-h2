@@ -6,6 +6,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import com.springboot.entity.Role;
+import com.springboot.entity.User;
 import com.springboot.repository.RoleRepository;
 import com.springboot.repository.UserRepository;
 
@@ -26,8 +27,13 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 		this.roleRepository.save(role1);
 		this.roleRepository.save(role2);
 		
-		
-		
+		//Criando e Salvando Users com as Roles setadas
+		User user1 = new User("Murillo Pezzuol","murillopezzuol@hotmail.com",role1);//Role1 -> admin
+		User user2 = new User("Gabriella Monteiro","gabriella_monteiroaz@hotmail.com",role2);//Role2 -> aluno
+		User user3 = new User("User 3","user3@hotmail.com",role2);//Role2 -> aluno
+		this.userRepository.save(user1);
+		this.userRepository.save(user2);
+		this.userRepository.save(user3);
 		
 		
 	}
