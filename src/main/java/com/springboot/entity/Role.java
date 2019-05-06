@@ -19,6 +19,10 @@ public class Role {
 		super();
 	}
 	
+	public Role(String nome) {
+		this.nome = nome;
+	}
+	
 
 	
 	//Getter's and Setter's
