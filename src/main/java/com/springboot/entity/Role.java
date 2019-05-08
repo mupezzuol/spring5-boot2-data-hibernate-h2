@@ -1,9 +1,13 @@
 package com.springboot.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.springboot.enums.RoleStatus;
 
 @Entity
 public class Role {
@@ -13,14 +17,17 @@ public class Role {
 	private Long id;
 	private String nome;
 	
+	@Enumerated(EnumType.STRING)//Para ele cadastrar no banco o conteúdo do ENUM, ou seja a STRING, sem ser o número do index
+	private RoleStatus status;
 	
 	//Constructor's
 	public Role() {
 		super();
 	}
 	
-	public Role(String nome) {
+	public Role(String nome, RoleStatus status) {
 		this.nome = nome;
+		this.status = status;
 	}
 	
 
@@ -37,6 +44,13 @@ public class Role {
 	}
 	public void setName(String nome) {
 		this.nome = nome;
+	}
+	public RoleStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(RoleStatus status) {
+		this.status = status;
 	}
 	
 	

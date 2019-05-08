@@ -21,6 +21,8 @@ public class User {
 	private Role role;
 	
 	
+	
+	
 	//Constructor's
 	public User() {
 		super();

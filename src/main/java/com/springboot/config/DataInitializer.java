@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.springboot.entity.Role;
 import com.springboot.entity.User;
+import com.springboot.enums.RoleStatus;
 import com.springboot.repository.RoleRepository;
 import com.springboot.repository.UserRepository;
 
@@ -22,8 +23,8 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
 		//Criando e Salvando as Roles
-		Role role1 = new Role("admin");
-		Role role2 = new Role("aluno");
+		Role role1 = new Role("admin",RoleStatus.ATIVO);
+		Role role2 = new Role("aluno",RoleStatus.INATIVO);
 		this.roleRepository.save(role1);
 		this.roleRepository.save(role2);
 		
