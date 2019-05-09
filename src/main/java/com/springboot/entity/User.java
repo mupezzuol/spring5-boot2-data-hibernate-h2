@@ -1,5 +1,6 @@
 package com.springboot.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,10 +18,10 @@ public class User {
 	
 	//MUITOS User -> UM Role
 	//Eu posso ter vários usuários com o mesmo perfil
-	@ManyToOne
+	//ManyToOne -> Ele trás toda a hierarquia do objeto, faz o inner join, pois por default ele usa FetchType.EAGER (TRÁS TUDO DO BANCO)
+	//CascadeType.PERSIST -> Caso eu insira um User que o Role ainda não existe, ele habilita pra salvar o Role, e dps o User.
+	@ManyToOne//(cascade = CascadeType.PERSIST)
 	private Role role;
-	
-	
 	
 	
 	//Constructor's

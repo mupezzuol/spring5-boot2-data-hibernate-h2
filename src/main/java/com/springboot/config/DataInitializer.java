@@ -73,7 +73,6 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 		}
 		
 		
-		
 	}
 
 
