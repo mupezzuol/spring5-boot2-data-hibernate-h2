@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.FetchType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
+import com.springboot.entity.Funcionalidades;
 import com.springboot.entity.Perfil;
 import com.springboot.entity.Role;
 import com.springboot.entity.User;
@@ -86,12 +89,18 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 		
 		
 		
-		//UTILIZANDO CASCADE, CLASSES EM PT-BR PARA OS TESTES
-		Perfil roleCascade1 = new Perfil("perfilCascade",RoleStatus.ATIVO);
-		Perfil roleCascade2 = new Perfil("cascadePerfil",RoleStatus.INATIVO);
-		Perfil roleCascade3 = new Perfil("perfilA",RoleStatus.INATIVO);
 		
-		//Dois perfis para esse usuário, porém tomar cuidado para não gerar "detached", colocar perfis que não foram cadastrados recentemente na transação
+		
+		//UTILIZANDO CASCADE, CLASSES EM PT-BR PARA OS TESTES
+		Funcionalidades func1 = new Funcionalidades("Add");
+		Funcionalidades func2 = new Funcionalidades("Delete");
+		Funcionalidades func3 = new Funcionalidades("Insert");
+		
+		Perfil roleCascade1 = new Perfil("perfilCascade",RoleStatus.ATIVO, Arrays.asList(func1));
+		Perfil roleCascade2 = new Perfil("cascadePerfil",RoleStatus.INATIVO, Arrays.asList(func2));
+		Perfil roleCascade3 = new Perfil("perfilA",RoleStatus.INATIVO, Arrays.asList(func3));
+		
+		//Não posso cadastrar objetos iguais que acabaram de ser cadastrados, vou gerar um erro de DETACHED
 		Usuario userCascade1 = new Usuario("Babuxo","cascade@hotmail.com",Arrays.asList(roleCascade1,roleCascade3));
 		Usuario userCascade2 = new Usuario("Morgana","lazy.eager@hibernate.com",Arrays.asList(roleCascade2));
 		this.usuarioRepository.save(userCascade1);//Fará o save normalmente do User, pois o Role está habilitado o Cascade PERSIST
@@ -107,6 +116,9 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 			System.out.println("Usuário: "+usuario.getNome());
 			for (Perfil perfil : usuario.getPerfis()) {
 				System.out.println("Perfis: "+perfil.getNome());//Printa os perfis dos usuários da lista
+				for (Funcionalidades func : perfil.getFuncionalidades()) {
+					System.out.println("Funcionalidades: "+func.getNome());//Utilizo o -> FetchType.EAGER para o Hibernate fazer todos os join necessarios
+				}
 			}
 			System.out.println("---------------------------");
 		}
