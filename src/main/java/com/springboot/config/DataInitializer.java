@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import com.springboot.entity.Role;
@@ -46,6 +48,30 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 		for (Role role : roles) {
 			System.out.println(role.getName());
 		}
+		
+		
+		
+		
+		//PAGINAÇÃO
+		//Cadastro 1000 Role, para eu testar a criação da paginação
+		for (int i = 0; i < 1000; i++) {
+			Role role = new Role("paginacaoTeste",RoleStatus.ATIVO);
+			this.roleRepository.save(role);
+		}
+		
+		//Crio paginação, de 10 página com 10 itens cada uma
+		PageRequest page = PageRequest.of(10, 10);
+		
+		//Crio minha lista com a busca de todos porém com a paginação na query
+		Page<Role> rolesPage = this.roleRepository.findAll(page);
+		
+		//Listo 10 itens, de acordo com a regra da paginação criada
+		System.out.println();
+		System.out.println("LISTA DE ROLE COM PAGINAÇÃO:");
+		for (Role role : rolesPage) {
+			System.out.println(role.getName());
+		}
+		
 		
 		
 	}

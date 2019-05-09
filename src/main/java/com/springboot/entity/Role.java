@@ -29,7 +29,6 @@ public class Role {
 		this.nome = nome;
 		this.status = status;
 	}
-	
 
 	
 	//Getter's and Setter's
@@ -52,6 +51,5 @@ public class Role {
 	public void setStatus(RoleStatus status) {
 		this.status = status;
 	}
-	
 	
 }
