@@ -1,11 +1,14 @@
 package com.springboot.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario {
@@ -16,8 +19,9 @@ public class Usuario {
 	private String nome;
 	private String email;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	private Perfil perfil;
+	//OneToMany -> Por padrão é utilizado FetchType.LAZY, portanto ele não trará os perfis, precisamos forçar o carregamento EAGER
+	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<Perfil> perfis;
 	
 	
 	//Constructor's
@@ -25,14 +29,13 @@ public class Usuario {
 		super();
 	}
 	
-	public Usuario(String nome, String email, Perfil perfil) {
+	public Usuario(String nome, String email, List<Perfil> perfiis) {
 		super();
 		this.nome = nome;
 		this.email = email;
-		this.perfil = perfil;
+		this.perfis = perfiis;
 	}
-	
-	
+
 	//Getter's and Setter's
 	public Long getId() {
 		return id;
@@ -58,13 +61,12 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public Perfil getPerfil() {
-		return perfil;
+	public List<Perfil> getPerfiis() {
+		return perfis;
 	}
 
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
+	public void setPerfiis(List<Perfil> perfiis) {
+		this.perfis = perfiis;
 	}
-
 
 }

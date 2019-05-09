@@ -1,5 +1,7 @@
 package com.springboot.config;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,10 +81,29 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 		}
 		
 		
+		
+		
+		
 		//UTILIZANDO CASCADE, CLASSES EM PT-BR PARA OS TESTES
-		Perfil roleCascade = new Perfil("roleCascade",RoleStatus.ATIVO);
-		Usuario userCascade = new Usuario("Role Cascade","cascade@hotmail.com",roleCascade);
-		this.usuarioRepository.save(userCascade);//Fará o save normalmente do User, pois o Role está habilitado o Cascade PERSIST
+		Perfil roleCascade1 = new Perfil("perfilCascade",RoleStatus.ATIVO);
+		Perfil roleCascade2 = new Perfil("cascadePerfil",RoleStatus.INATIVO);
+		Usuario userCascade1 = new Usuario("Perfil Teste","cascade@hotmail.com",Arrays.asList(roleCascade1));
+		Usuario userCascade2 = new Usuario("Cascade Teste","lazy.eager@hibernate.com",Arrays.asList(roleCascade2));
+		this.usuarioRepository.save(userCascade1);//Fará o save normalmente do User, pois o Role está habilitado o Cascade PERSIST
+		this.usuarioRepository.save(userCascade2);
+		
+		
+		//CASCADE TESTES
+		System.out.println();
+		System.out.println("CASCADE TESTES:");
+		List<Usuario> usuarios = this.usuarioRepository.findAll();
+		for (Usuario usuario : usuarios) {
+			for (Perfil perfil : usuario.getPerfiis()) {
+				System.out.println(perfil.getName());
+			}
+		}
+		
+		
 		
 	}
 
