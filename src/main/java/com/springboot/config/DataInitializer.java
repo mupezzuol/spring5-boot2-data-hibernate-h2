@@ -124,6 +124,21 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 		}
 		
 		
+		//QUERYS PERSONALIZADAS
+		System.out.println();
+		System.out.println("QUERYS TESTES:");
+		System.out.println("---------------------------");
+		
+		//Querys de testes
+		Usuario userQuery1 = this.usuarioRepository.findByNomeQualquerCoisa("Mo");//IgnoreCase -> aceita maiuscula e minuscula
+		Usuario userQuery2 = this.usuarioRepository.findByEmail("cascade@hotmail.com");
+		System.out.println("Usuário por nome usando like: "+userQuery1.getNome());//Morgana
+		System.out.println("Usuário por e-mail: "+userQuery2.getNome());//Babuxo
+		
+		System.out.println("---------------------------");
+		
+		
+		
 		
 	}
 
