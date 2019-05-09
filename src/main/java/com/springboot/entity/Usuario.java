@@ -29,11 +29,11 @@ public class Usuario {
 		super();
 	}
 	
-	public Usuario(String nome, String email, List<Perfil> perfiis) {
+	public Usuario(String nome, String email, List<Perfil> perfis) {
 		super();
 		this.nome = nome;
 		this.email = email;
-		this.perfis = perfiis;
+		this.perfis = perfis;
 	}
 
 	//Getter's and Setter's
@@ -61,12 +61,12 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public List<Perfil> getPerfiis() {
+	public List<Perfil> getPerfis() {
 		return perfis;
 	}
 
-	public void setPerfiis(List<Perfil> perfiis) {
-		this.perfis = perfiis;
+	public void setPerfiis(List<Perfil> perfis) {
+		this.perfis = perfis;
 	}
 
 }

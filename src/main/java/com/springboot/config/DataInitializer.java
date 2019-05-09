@@ -76,9 +76,11 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 		//Listo 10 itens, de acordo com a regra da paginação criada
 		System.out.println();
 		System.out.println("LISTA DE ROLE COM PAGINAÇÃO:");
+		System.out.println("---------------------------");
 		for (Role role : rolesPage) {
 			System.out.println(role.getName());
 		}
+		System.out.println("---------------------------");
 		
 		
 		
@@ -87,8 +89,11 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 		//UTILIZANDO CASCADE, CLASSES EM PT-BR PARA OS TESTES
 		Perfil roleCascade1 = new Perfil("perfilCascade",RoleStatus.ATIVO);
 		Perfil roleCascade2 = new Perfil("cascadePerfil",RoleStatus.INATIVO);
-		Usuario userCascade1 = new Usuario("Perfil Teste","cascade@hotmail.com",Arrays.asList(roleCascade1));
-		Usuario userCascade2 = new Usuario("Cascade Teste","lazy.eager@hibernate.com",Arrays.asList(roleCascade2));
+		Perfil roleCascade3 = new Perfil("perfilA",RoleStatus.INATIVO);
+		
+		//Dois perfis para esse usuário, porém tomar cuidado para não gerar "detached", colocar perfis que não foram cadastrados recentemente na transação
+		Usuario userCascade1 = new Usuario("Babuxo","cascade@hotmail.com",Arrays.asList(roleCascade1,roleCascade3));
+		Usuario userCascade2 = new Usuario("Morgana","lazy.eager@hibernate.com",Arrays.asList(roleCascade2));
 		this.usuarioRepository.save(userCascade1);//Fará o save normalmente do User, pois o Role está habilitado o Cascade PERSIST
 		this.usuarioRepository.save(userCascade2);
 		
@@ -96,11 +101,14 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 		//CASCADE TESTES
 		System.out.println();
 		System.out.println("CASCADE TESTES:");
+		System.out.println("---------------------------");
 		List<Usuario> usuarios = this.usuarioRepository.findAll();
 		for (Usuario usuario : usuarios) {
-			for (Perfil perfil : usuario.getPerfiis()) {
-				System.out.println(perfil.getName());
+			System.out.println("Usuário: "+usuario.getNome());
+			for (Perfil perfil : usuario.getPerfis()) {
+				System.out.println("Perfis: "+perfil.getNome());//Printa os perfis dos usuários da lista
 			}
+			System.out.println("---------------------------");
 		}
 		
 		
