@@ -9,17 +9,23 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
+import com.springboot.entity.Perfil;
 import com.springboot.entity.Role;
 import com.springboot.entity.User;
+import com.springboot.entity.Usuario;
 import com.springboot.enums.RoleStatus;
 import com.springboot.repository.RoleRepository;
 import com.springboot.repository.UserRepository;
+import com.springboot.repository.UsuarioRepository;
 
 @Component
 public class DataInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
 	@Autowired
 	private UserRepository userRepository; 
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository; 
 	
 	@Autowired
 	private RoleRepository roleRepository;
@@ -72,6 +78,11 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 			System.out.println(role.getName());
 		}
 		
+		
+		//UTILIZANDO CASCADE, CLASSES EM PT-BR PARA OS TESTES
+		Perfil roleCascade = new Perfil("roleCascade",RoleStatus.ATIVO);
+		Usuario userCascade = new Usuario("Role Cascade","cascade@hotmail.com",roleCascade);
+		this.usuarioRepository.save(userCascade);//Fará o save normalmente do User, pois o Role está habilitado o Cascade PERSIST
 		
 	}
 
